@@ -1,0 +1,18 @@
+<div id='modernizr_img' style="display: none;"></div>
+<script src="{{ modernizr_js_url }}" type="text/javascript"></script>
+<script type="text/javascript">
+  var m=Modernizr,c='';
+  for(var f in m){
+    if(f[0]=='_'){continue;}
+    var t=typeof m[f];
+    if(t=='function'){continue;}
+    if(t=='object'){
+      for(var s in m[f]){
+        c+='&'+f+'['+s+']='+(m[f][s]?'1':'0');
+      }
+    }else{
+      c+='&'+f+'='+(m[f]?'1':'0');
+    }
+  }
+  document.getElementById('modernizr_img').innerHTML = "<img src='{{ modernizr_sentinel_img_url }}?"+c+"'></img>";
+</script>
