@@ -30,8 +30,8 @@ Installation
 
    Note: Be aware of middleware ordering and other middleware that may
    intercept requests and return responses.  Putting the modernizr
-   middleware *after* the Flatpage middleware, for example, means the
-   toolbar will not show up on flatpages.
+   middleware *after* the Flatpage middleware, for example, means modernizr
+   will not show up on flatpages.
 
 #. Add `modernizr` to your `INSTALLED_APPS` setting so Django can find the
    template files associated with the modernizr.
