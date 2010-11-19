@@ -20,23 +20,23 @@ Installation
 
    ``'modernizr.middleware.ModenizrMiddleware',``
 
-   The order of MIDDLEWARE_CLASSES is important: the Debug Toolbar middleware
+   The order of MIDDLEWARE_CLASSES is important: the Modernizr Middleware middleware
    must come after any other middleware that encodes the response's content
    (such as GZipMiddleware).
 
-   Note: The debug toolbar will only display itself if the mimetype of the
+   Note: The modernizr code will only display itself if the mimetype of the
    response is either `text/html` or `application/xhtml+xml` and contains a
    closing `</body>` tag.
 
    Note: Be aware of middleware ordering and other middleware that may
-   intercept requests and return responses.  Putting the debug toolbar
+   intercept requests and return responses.  Putting the modernizr
    middleware *after* the Flatpage middleware, for example, means the
    toolbar will not show up on flatpages.
 
 #. Add `modernizr` to your `INSTALLED_APPS` setting so Django can find the
-   template files associated with the Debug Toolbar.
+   template files associated with the modernizr.
 
-   Alternatively, add the path to the debug toolbar templates
+   Alternatively, add the path to the modernizr templates
    (``'path/to/modernizr/templates'`` to your ``TEMPLATE_DIRS`` setting.)
 
 Configuration
