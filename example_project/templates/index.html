@@ -1,0 +1,12 @@
+<html>
+<body>
+  <h1>Modernizr</h1>
+  <ul>
+    {% for name, is_supported in request.modernizr.items %}
+      <li><em>{{ name }}:</em> {{ is_supported }}</li>
+    {% empty %}
+      <li>We're storing your Modernizr data. Refresh to see it.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

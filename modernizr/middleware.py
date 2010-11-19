@@ -12,6 +12,22 @@ from django.template.loader import render_to_string
 from django.utils.encoding import smart_unicode
 from django.utils.http import cookie_date
 
+from modernizr.settings import contribute_to_settings
+
+# Default settings needed by ModernizrMiddleware
+contribute_to_settings({
+    'MODERNIZR_STORAGE': 'cookie',
+    'MODERNIZR_COOKIE_NAME': 'modernizr',
+    'MODERNIZR_COOKIE_AGE': 60 * 60 * 24 * 7 * 2, # 2 weeks
+    'MODERNIZR_COOKIE_DOMAIN': None,
+    'MODERNIZR_COOKIE_SECURE': False,
+    'MODERNIZR_COOKIE_PATH': '/',
+    'MODERNIZR_SESSION_KEY': 'modernizr',
+    'MODERNIZR_JS_URL': 'http://cachedcommons.org/cache/modernizr/1.5.0/javascripts/modernizr-min.js',
+    'MODERNIZR_SENTINEL_IMAGE_URL': '/django-modernizr-endpoint.gif',
+    'MODERNIZR_INCLUDE_TAG': 'body',
+})
+
 _HTML_TYPES = ('text/html', 'application/xhtml+xml')
 
 def replace_insensitive(string, target, replacement):
@@ -73,14 +89,17 @@ class ModernizrMiddleware(object):
 
     def process_request(self, request):
         self.load_modernizr_from_storage(request)
-        return None
-
-    def process_response(self, request, response):
         if request.path == settings.MODERNIZR_SENTINEL_IMAGE_URL:
             response = HttpResponse('')
             response = self.persist_modernizr(request, response)
-        elif request.modernizr is None and response.status_code == 200 and \
+            return response
+        else:
+            return None
+
+    def process_response(self, request, response):
+        if request.modernizr is None and response.status_code == 200 and \
             response['Content-Type'].split(';')[0] in _HTML_TYPES:
-                response = self.add_modernizr(response)
+
+            response = self.add_modernizr(response)
 
         return response
