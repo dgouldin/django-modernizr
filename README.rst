@@ -18,7 +18,7 @@ Installation
 
 #. Add the following middleware to your project's `settings.py` file:
 
-   ``'modernizr.middleware.ModenizrMiddleware',``
+   ``'modernizr.middleware.ModernizrMiddleware',``
 
    The order of MIDDLEWARE_CLASSES is important: the Modernizr Middleware middleware
    must come after any other middleware that encodes the response's content
